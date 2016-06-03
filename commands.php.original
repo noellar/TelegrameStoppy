@@ -1,0 +1,35 @@
+<?php
+
+ ini_set('error_reporting', E_ALL);
+
+ $botToken = "235524062:AAHLClo3BhzUbPRWOFN5JhijWmzxcP0_8MI"; 
+ $website = "https://api.telegram.org/bot".$botToken;
+
+ $update = file_get_contents("php://input");
+ $update = json_decode($update, TRUE);
+
+ $chatId = $update["message"]["chat"]["id"];
+ $message = $update["message"]["text"];
+
+switch ($message) {
+
+    case "/name":
+       sendMessage($chatId, "I am eStoppy, nice to meet you ");
+       break;
+    case "/hi":
+       sendMessage($chatId, "hey there!");
+       break;
+    case "/start":
+       sendMessage($chatId, "Welcome");   
+
+}
+
+function sendMessage ($chatId, $message) {
+       $url =$GLOBALS['website']."/sendMessage?chat_id=".$chatId."&text=".urlencode($message);
+     file_get_contents($url);
+}
+
+
+?>
+
+<h2>Test</h2>
